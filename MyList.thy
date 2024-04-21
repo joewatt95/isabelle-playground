@@ -72,7 +72,7 @@ qed
 
 corollary sum_eq_sum_tail_rec :
   "sum xs = sum_tailrec xs 0"
-\<comment> \<open>sledgehammer\<close>
-by (metis acc_sum_eq_sum_tailrec_acc add_0_left)
+  \<comment> \<open>sledgehammer\<close>
+  by (metis acc_sum_eq_sum_tailrec_acc add_0_left)
 
 end
