@@ -21,7 +21,7 @@ proof
   fix x :: nat
   let "?P y" = "y > x"
   have "?P (x + 1)" by simp
-  thus "\<exists> y. ?P y" by auto
+  thus "\<exists> y. ?P y" ..
 qed
 
 end
