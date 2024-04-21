@@ -15,13 +15,20 @@ proof (induction n)
   case (Suc _) thus ?case by simp
 qed
 
-lemma exists_bigger_nat :
+lemma exists_bigger_nat_0 :
   "\<forall> x :: nat. \<exists> y. y > x"
 proof
   fix x :: nat
   let "?P y" = "y > x"
   have "?P (x + 1)" by simp
   thus "\<exists> y. ?P y" ..
+qed
+
+lemma exists_bigger_nat_1 :
+  fixes x :: nat
+  obtains y where "y > x"
+proof
+  show "x + 1 > x" by simp
 qed
 
 end
