@@ -32,7 +32,7 @@ proof (induction xs)
   case (Cons _ _) thus ?case by simp
 qed
 
-theorem reverse_reverse :
+theorem reverse_reverse [simp] :
   "reverse (reverse xs) = xs"
 proof (induction xs)
   case Nil show ?case by simp
@@ -59,14 +59,20 @@ lemma plus_sum_tailrec_eq_sum_tailrec_plus [simp] :
 proof (induction xs arbitrary: acc)
   case Nil show ?case by simp
   case (Cons _ _)
-    thus ?case by (simp add: add.left_commute) (* sledgehammer *)
+    (* sledgehammer *)
+    thus ?case by (simp add: add.left_commute)
 qed
 
-theorem sum_eq_sum_tailrec :
+theorem acc_sum_eq_sum_tailrec_acc :
   "acc + sum xs = sum_tailrec xs acc"
 proof (induction xs)
   case Nil show ?case by simp
   case (Cons _ _) thus ?case by simp
 qed
+
+corollary sum_eq_sum_tail_rec :
+  "sum xs = sum_tailrec xs 0"
+  (* sledgehammer *)
+  by (metis acc_sum_eq_sum_tailrec_acc add_0)
 
 end
