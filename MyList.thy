@@ -42,7 +42,7 @@ qed
 lemma reverse_append [simp] :
   "reverse (append xs ys) = append (reverse ys) (reverse xs)" (is "?P xs")
 proof (induction xs)
-  case Nil show ?case by simp 
+  case Nil show ?case by simp
   case (Cons _ _) thus ?case by simp
 qed
 
@@ -58,7 +58,8 @@ lemma plus_sum_tailrec_eq_sum_tailrec_plus [simp] :
   "sum_tailrec xs (x + acc) = x + sum_tailrec xs acc"
 proof (induction xs arbitrary: acc)
   case Nil show ?case by simp
-  case (Cons _ _) thus ?case by smt
+  case (Cons _ _)
+    thus ?case by (simp add: add.left_commute) (* sledgehammer *)
 qed
 
 theorem sum_eq_sum_tailrec :
