@@ -59,7 +59,7 @@ lemma plus_sum_tailrec_eq_sum_tailrec_plus [simp] :
 proof (induction xs arbitrary: acc)
   case Nil show ?case by simp
   case (Cons _ _)
-    (* sledgehammer *)
+  \<comment> \<open>sledgehammer\<close>
     thus ?case by (simp add: add.left_commute)
 qed
 
@@ -72,7 +72,7 @@ qed
 
 corollary sum_eq_sum_tail_rec :
   "sum xs = sum_tailrec xs 0"
-  (* sledgehammer *)
-  by (metis acc_sum_eq_sum_tailrec_acc add_0)
+  \<comment> \<open>sledgehammer\<close>
+   by (metis acc_sum_eq_sum_tailrec_acc add_0)
 
 end
