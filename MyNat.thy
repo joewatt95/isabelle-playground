@@ -50,7 +50,8 @@ lemma even_odd_of_even'_odd' :
     "even' n = even n" and
     "odd' n = odd n"
 proof (induction n)
-  case 0 {
+  case 0
+  {
     case 2 
     \<comment> \<open>sledgehammer\<close>
     show ?case by (simp add: odd.simps) 
@@ -60,7 +61,8 @@ proof (induction n)
     show ?case by (simp add: even_odd.even_zero)
   }
 next
-  case (Suc _) {
+  case (Suc _)
+  {
     case 1
     \<comment> \<open>sledgehammer\<close>
     show ?case by (
