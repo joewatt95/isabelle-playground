@@ -25,8 +25,7 @@ proof
 qed
 
 lemma exists_bigger_nat_1 :
-  fixes x :: nat
-  obtains y where "y > x"
+  obtains y :: nat where "y > x"
 proof
   show "x + 1 > x" by simp
 qed
@@ -47,73 +46,69 @@ abbreviation odd' :: "nat => bool" where
 
 lemma even_odd_of_even'_odd' :
   shows
-    "even' n \<Longrightarrow> even n" and
-    "odd' n \<Longrightarrow>  odd n"
+    even_of_even' : "even' n \<Longrightarrow> even n" and
+    odd_of_odd' : "odd' n \<Longrightarrow> odd n"
 proof (induction n)
   case 0
   {
-    case 1
+    case 1 assume "even' 0"
     \<comment> \<open>sledgehammer\<close>
     show ?case by (simp add: even_odd.even_zero)
   next
-    case 2
+    case 2 assume "odd' 0"
     \<comment> \<open>sledgehammer\<close>
     show ?case using "2" by auto
   }
 next
   case (Suc n)
   {
-    case 1
+    case 1 assume "even' (Suc n)"
     \<comment> \<open>sledgehammer\<close>
-    moreover obtain k where "n + 1 = 2 * k"
-      using Suc_eq_plus1 calculation by presburger
+    show ?case when "odd' n" (is ?thesis)
+      using Suc.IH(2) even_of_odd that by fastforce 
     \<comment> \<open>sledgehammer\<close>
-    moreover show ?case when "odd' n" (is ?thesis)
-      using Suc.IH(2) Suc_eq_plus1 even_of_odd that by presburger 
-    \<comment> \<open>sledgehammer\<close>
-    moreover have "n = 2 * (k - 1) + 1" using calculation(2) by linarith
-    ultimately show ?thesis by blast
+    obtain k where "n + 1 = 2 * k" by (metis "1" Suc_eq_plus1)
+    hence "n = 2 * (k - 1) + 1" by simp
+    thus ?thesis by blast
   next
-    case 2
+    case 2 assume "odd' (Suc n)"
     \<comment> \<open>sledgehammer\<close>
-    moreover obtain k where "n + 1 = 2 * k + 1"
-      using Suc_eq_plus1 calculation by presburger
+    show ?case when "even' n" (is ?thesis)
+      using Suc.IH(1) odd_of_even that by fastforce
     \<comment> \<open>sledgehammer\<close>
-    moreover show ?case when "even' n" (is ?thesis)
-      using Suc.IH(1) Suc_eq_plus1 odd_of_even that by presburger
-    \<comment> \<open>sledgehammer\<close>
-    moreover have "n = 2 * k" using calculation(2) by linarith
-    ultimately show ?thesis by blast
+    obtain k where "n + 1 = 2 * k + 1" by (metis "2" Suc_eq_plus1)
+    hence "n = 2 * k" by simp
+    thus ?thesis by blast
   }
 qed
 
 lemma even'_odd'_of_even_odd :
   shows
-    "even n \<Longrightarrow> even' n" and
-    "odd n \<Longrightarrow> odd' n"
+    even'_of_even : "even n \<Longrightarrow> even' n" and
+    odd'_of_odd : "odd n \<Longrightarrow> odd' n"
 proof (induction rule: even_odd.inducts)
   case even_zero
   show ?case by simp
 next
   case odd_of_even
-  fix n assume "even n" and "even' n"
-  then obtain k where "n = 2 * k" by blast
-  thus "odd' (n + 1)" by simp
+  fix m assume "even m" and "even' m"
+  then obtain k where "m = 2 * k" by blast
+  thus "odd' (m + 1)" by simp
 next
   case even_of_odd
-  fix n assume "odd n" and "odd' n"
-  then obtain k where "n = 2 * k + 1" by blast
+  fix m assume "odd m" and "odd' m"
+  then obtain k where "m = 2 * k + 1" by blast
   \<comment> \<open>sledgehammer\<close>
-  thus "even' (n + 1)"
+  thus "even' (m + 1)"
     by (metis ab_semigroup_add_class.add_ac(1) add.commute mult_2)
 qed
 
 theorem even_eq_even' :
   "even n = even' n"
-  using even'_odd'_of_even_odd even_odd_of_even'_odd' by blast
+  using even'_of_even even_of_even' by blast
 
 theorem edd_eq_odd' :
   "odd n = odd' n"
-  using even'_odd'_of_even_odd even_odd_of_even'_odd' by blast
+  using odd'_of_odd odd_of_odd' by blast
 
 end
