@@ -22,6 +22,7 @@ lemma append_nil [simp] :
   "append xs Nil = xs"
 proof (induction xs)
   case Nil show ?case by simp
+next
   case (Cons _ _) thus ?case by simp
 qed
 
@@ -36,6 +37,7 @@ theorem reverse_reverse [simp] :
   "reverse (reverse xs) = xs"
 proof (induction xs)
   case Nil show ?case by simp
+next
   case (Cons _ _) thus ?case by simp
 qed
 
@@ -43,6 +45,7 @@ lemma reverse_append [simp] :
   "reverse (append xs ys) = append (reverse ys) (reverse xs)" (is "?P xs")
 proof (induction xs)
   case Nil show ?case by simp
+next
   case (Cons _ _) thus ?case by simp
 qed
 
@@ -58,6 +61,7 @@ lemma plus_sum_tailrec_eq_sum_tailrec_plus [simp] :
   "sum_tailrec xs (x + acc) = x + sum_tailrec xs acc"
 proof (induction xs arbitrary: acc)
   case Nil show ?case by simp
+next
   case (Cons _ _)
   \<comment> \<open>sledgehammer\<close>
     thus ?case by (simp add: add.left_commute)
@@ -67,6 +71,7 @@ theorem acc_sum_eq_sum_tailrec_acc :
   "acc + sum xs = sum_tailrec xs acc"
 proof (induction xs)
   case Nil show ?case by simp
+next
   case (Cons _ _) thus ?case by simp
 qed
 

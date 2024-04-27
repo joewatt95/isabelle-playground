@@ -31,4 +31,48 @@ proof
   show "x + 1 > x" by simp
 qed
 
+inductive
+  even :: "nat => bool" and
+  odd :: "nat => bool"
+where
+  even_zero : "even 0" |
+  odd_of_even : "even n \<Longrightarrow> odd (n + 1)" | 
+  even_of_odd : "odd n \<Longrightarrow> even (n + 1)"
+
+abbreviation even' :: "nat => bool" where
+  "even' n \<equiv> \<exists> k. n = 2 * k"
+
+abbreviation odd' :: "nat => bool" where
+  "odd' n \<equiv> \<exists> k. n = 2 * k + 1"
+
+lemma even_odd_of_even'_odd' :
+  shows
+    "even' n = even n" and
+    "odd' n = odd n"
+proof (induction n)
+  case 0 {
+    case 2 
+    \<comment> \<open>sledgehammer\<close>
+    show ?case by (simp add: odd.simps) 
+  next
+    case 1
+    \<comment> \<open>sledgehammer\<close>
+    show ?case by (simp add: even_odd.even_zero)
+  }
+next
+  case (Suc n) {
+    case 1
+    \<comment> \<open>sledgehammer\<close>
+    show ?case by (
+      metis
+      Suc.IH(2) Suc_eq_plus1 add_right_imp_eq dvd_triv_left even.simps
+      even_Suc nat.simps(3) oddE
+    ) 
+  next
+    case 2
+    \<comment> \<open>sledgehammer\<close>
+    show ?case by (simp add: Suc.IH(1) odd.simps)
+  }
+qed
+
 end
