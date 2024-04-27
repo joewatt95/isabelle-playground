@@ -60,7 +60,7 @@ proof (induction n)
     show ?case by (simp add: even_odd.even_zero)
   }
 next
-  case (Suc n) {
+  case (Suc _) {
     case 1
     \<comment> \<open>sledgehammer\<close>
     show ?case by (
