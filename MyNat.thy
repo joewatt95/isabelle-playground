@@ -53,18 +53,17 @@ proof (induction n)
   {
     case 1 assume "even' 0"
     \<comment> \<open>sledgehammer\<close>
-    show ?case by (simp add: even_odd.even_zero)
+    thus ?case by (simp add: even_odd.even_zero)
   next
     case 2 assume "odd' 0"
-    \<comment> \<open>sledgehammer\<close>
-    show ?case using "2" by auto
+    thus ?case by simp
   }
 next
   case (Suc n)
   {
     case 1 assume "even' (Suc n)"
     \<comment> \<open>sledgehammer\<close>
-    show ?case when "odd' n" (is ?thesis)
+    thus ?case when "odd' n" (is ?thesis)
       using Suc.IH(2) even_of_odd that by fastforce 
     \<comment> \<open>sledgehammer\<close>
     obtain k where "n + 1 = 2 * k" by (metis "1" Suc_eq_plus1)
@@ -73,7 +72,7 @@ next
   next
     case 2 assume "odd' (Suc n)"
     \<comment> \<open>sledgehammer\<close>
-    show ?case when "even' n" (is ?thesis)
+    thus ?case when "even' n" (is ?thesis)
       using Suc.IH(1) odd_of_even that by fastforce
     \<comment> \<open>sledgehammer\<close>
     obtain k where "n + 1 = 2 * k + 1" by (metis "2" Suc_eq_plus1)
@@ -88,7 +87,7 @@ lemma even'_odd'_of_even_odd :
     odd'_of_odd : "odd n \<Longrightarrow> odd' n"
 proof (induction rule: even_odd.inducts)
   case even_zero
-  show ?case by simp
+  thus ?case by simp
 next
   case odd_of_even
   fix m assume "even m" and "even' m"
