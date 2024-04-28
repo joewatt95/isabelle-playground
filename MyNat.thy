@@ -110,4 +110,25 @@ theorem edd_eq_odd' :
   "odd n = odd' n"
   using odd'_of_odd odd_of_odd' by blast
 
+theorem odd_or_even :
+  "odd n \<or> even n"
+proof (induction n)
+  case 0
+  thus ?case using even_odd.even_zero by fastforce
+next
+  case (Suc n)
+  thus ?case
+  proof
+    assume "even n"
+    thus ?case using even_odd.odd_of_even by fastforce
+  next
+    assume "odd n"
+    thus ?case using even_odd.even_of_odd by fastforce
+  qed
+qed
+
+corollary odd'_or_even' :
+  "odd' n \<or> even' n"
+  using odd_or_even odd'_of_odd even'_of_even by blast
+
 end
