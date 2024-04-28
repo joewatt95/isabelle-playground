@@ -114,16 +114,16 @@ theorem odd_or_even :
   "odd n \<or> even n"
 proof (induction n)
   case 0
-  thus ?case using even_odd.even_zero by fastforce
+  thus ?case using even_zero by fastforce
 next
   case (Suc n)
-  thus ?case
+  assume "odd n \<or> even n" thus ?case
   proof
-    assume "even n"
-    thus ?case using even_odd.odd_of_even by fastforce
-  next
     assume "odd n"
-    thus ?case using even_odd.even_of_odd by fastforce
+    thus ?case using even_of_odd by fastforce
+  next
+    assume "even n"
+    thus ?case using odd_of_even by fastforce
   qed
 qed
 
