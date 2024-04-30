@@ -49,6 +49,10 @@ next
   case (Cons _ _) thus ?case by simp
 qed
 
+lemma test_auto_quickcheck_false :
+  "reverse (append xs ys) = append (reverse xs) (reverse ys)"
+  oops
+
 fun sum :: "nat list => nat" where
   "sum Nil = 0" |
   "sum (Cons x xs) = x + sum xs"
@@ -63,7 +67,6 @@ proof (induction xs arbitrary: acc)
   case Nil show ?case by simp
 next
   case (Cons _ _)
-  \<comment> \<open>sledgehammer\<close>
     thus ?case by (simp add: add.left_commute)
 qed
 
@@ -77,7 +80,6 @@ qed
 
 corollary sum_eq_sum_tail_rec :
   "sum xs = sum_tailrec xs 0"
-  \<comment> \<open>sledgehammer\<close>
   by (metis acc_sum_eq_sum_tailrec_acc add_0_left)
 
 end
