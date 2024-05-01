@@ -151,13 +151,13 @@ proof (induction n arbitrary: m rule: less_induct)
   thus "leq m n"
   proof (cases k)
     case 0
-      hence "n = m" by (simp add: n_eq_m_plus_k)
-      thus ?thesis using leq_self by blast
+   hence "n = m" by (simp add: n_eq_m_plus_k)
+    thus ?thesis using leq_self by blast
   next
     case (Suc k')
-      hence "n - 1 = m + k'" by (simp add: n_eq_m_plus_k)
-      hence "leq m (n - 1)" by (simp add: Suc less.IH n_eq_m_plus_k)
-      thus ?thesis using leq_succ_of_leq by blast
+    hence "n - 1 = m + k'" by (simp add: n_eq_m_plus_k)
+    hence "leq m (n - 1)" by (simp add: Suc less.IH n_eq_m_plus_k)
+    thus ?thesis using leq_succ_of_leq by blast
   qed
 qed
 

@@ -67,7 +67,7 @@ proof (induction xs arbitrary: acc)
   case Nil show ?case by simp
 next
   case (Cons _ _)
-    thus ?case by (simp add: add.left_commute)
+  thus ?case by (simp add: add.left_commute)
 qed
 
 theorem acc_sum_eq_sum_tailrec_acc :
