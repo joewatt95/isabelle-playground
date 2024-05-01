@@ -42,7 +42,7 @@ next
 qed
 
 lemma reverse_append [simp] :
-  "reverse (append xs ys) = append (reverse ys) (reverse xs)" (is "?P xs")
+  "reverse (append xs ys) = append (reverse ys) (reverse xs)"
 proof (induction xs)
   case Nil show ?case by simp
 next
@@ -51,6 +51,7 @@ qed
 
 lemma test_auto_quickcheck_false :
   "reverse (append xs ys) = append (reverse xs) (reverse ys)"
+  (* by sledgehammer [abduce = 1] *)
   oops
 
 fun sum :: "nat list => nat" where
