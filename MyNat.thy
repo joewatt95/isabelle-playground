@@ -148,6 +148,7 @@ lemma leq_of_leq' :
 proof (induction n arbitrary: m rule: less_induct)
   case (less n)
   then obtain k where n_eq_m_plus_k : "n = m + k" by blast
+
   thus "leq m n"
   proof (cases k)
     case 0
