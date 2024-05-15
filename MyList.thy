@@ -9,12 +9,12 @@ datatype 'a list
   | Cons 'a "'a list"
 
 fun append :: "'a list => 'a list => 'a list" where
-  "append Nil ys = ys" |
-  "append (Cons x xs) ys = Cons x (append xs ys)"
+  appendNil : "append Nil ys = ys" |
+  appendCons : "append (Cons x xs) ys = Cons x (append xs ys)"
 
 fun reverse :: "'a list => 'a list" where
-  "reverse Nil = Nil" |
-  "reverse (Cons x xs) = append (reverse xs) (Cons x Nil)"
+  reverseNil : "reverse Nil = Nil" |
+  reverseCons : "reverse (Cons x xs) = append (reverse xs) (Cons x Nil)"
 
 value "reverse (Cons false (Cons true Nil))" 
 
