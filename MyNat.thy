@@ -4,7 +4,8 @@ imports Main
 
 begin
 
-fun sumUpToOfFun :: "(nat => nat) => nat => nat" where
+fun sumUpToOfFun :: "(nat => nat) => nat => nat"
+where
   "sumUpToOfFun f 0 = f 0" |
   "sumUpToOfFun f (Suc n) = f (n + 1) + sumUpToOfFun f n"
 
@@ -38,10 +39,12 @@ where
   odd_of_even : "even n \<Longrightarrow> odd (n + 1)" | 
   even_of_odd : "odd n \<Longrightarrow> even (n + 1)"
 
-abbreviation even' :: "nat => bool" where
+abbreviation even' :: "nat => bool"
+where
   "even' n \<equiv> \<exists> k. n = 2 * k"
 
-abbreviation odd' :: "nat => bool" where
+abbreviation odd' :: "nat => bool"
+where
   "odd' n \<equiv> \<exists> k. n = 2 * k + 1"
 
 lemma even_odd_of_even'_odd' :
@@ -109,7 +112,9 @@ proof (induction n)
   thus ?case using even_zero by fastforce
 next
   case (Suc n)
-  assume "odd n \<or> even n" thus ?case
+  assume "odd n \<or> even n"
+
+  thus ?case
   proof
     assume "odd n"
     thus ?case using even_of_odd by fastforce
@@ -129,7 +134,8 @@ where
   leq_self : "leq m m" |
   leq_succ_of_leq : "leq m n \<Longrightarrow> leq m (n + 1)"
 
-abbreviation leq' :: "nat => nat => bool" where
+abbreviation leq' :: "nat => nat => bool"
+where
   "leq' m n \<equiv> \<exists> k. n = m + k"
 
 lemma leq'_of_leq :
@@ -139,7 +145,8 @@ proof (induction rule: leq.induct)
   show ?case by simp
 next
   case leq_succ_of_leq
-  fix m n assume "leq m n" and "leq' m n"
+  fix m n 
+  assume "leq m n" and "leq' m n"
   then obtain k where "n = m + k" by blast
   hence "n + 1 = m + (k + 1)" by simp
   thus "leq' m (n + 1)" by blast
@@ -154,7 +161,7 @@ proof (induction n arbitrary: m rule: less_induct)
   thus "leq m n"
   proof (cases k)
     case 0
-   hence "n = m" by (simp add: n_eq_m_plus_k)
+    hence "n = m" by (simp add: n_eq_m_plus_k)
     thus ?thesis using leq_self by blast
   next
     case (Suc k')
