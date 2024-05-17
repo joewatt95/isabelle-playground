@@ -54,10 +54,12 @@ lemma even_odd_of_even'_odd' :
 proof (induction n)
   case 0
   {
-    case 1 assume "even' 0"
+    case 1
+    assume "even' 0"
     thus ?case by (simp add: even_odd.even_zero)
   next
-    case 2 assume "odd' 0"
+    case 2
+    assume "odd' 0"
     thus ?case by simp
   }
 next
@@ -65,16 +67,20 @@ next
   {
     case 1
     assume "even' (Suc n)"
+
     thus ?case when "odd' n" (is ?thesis)
       using Suc.IH(2) even_of_odd that by fastforce 
+
     obtain k where "n + 1 = 2 * k" by (metis "1" Suc_eq_plus1)
     hence "n = 2 * (k - 1) + 1" by simp
     thus ?thesis by blast
   next
     case 2
     assume "odd' (Suc n)"
+
     thus ?case when "even' n" (is ?thesis)
       using Suc.IH(1) odd_of_even that by fastforce
+
     obtain k where "n + 1 = 2 * k + 1" by (metis "2" Suc_eq_plus1)
     hence "n = 2 * k" by simp
     thus ?thesis by blast
@@ -145,7 +151,7 @@ proof (induction rule: leq.induct)
   show ?case by simp
 next
   case leq_succ_of_leq
-  fix m n 
+  fix m n
   assume "leq m n" and "leq' m n"
   then obtain k where "n = m + k" by blast
   hence "n + 1 = m + (k + 1)" by simp
