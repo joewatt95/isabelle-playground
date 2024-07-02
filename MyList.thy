@@ -27,7 +27,7 @@ proof (induction xs)
   show ?case by simp
 next
   case (Cons _ _)
-  thus ?case by simp
+  then show ?case by simp
 qed
 
 lemma append_cons [simp] :
@@ -37,7 +37,7 @@ proof (induction xs)
   show ?case by simp
 next
   case (Cons _ _)
-  thus ?case by simp
+  then show ?case by simp
 qed
 
 theorem reverse_reverse [simp] :
@@ -47,7 +47,7 @@ proof (induction xs)
   show ?case by simp
 next
   case (Cons _ _)
-  thus ?case by simp
+  then show ?case by simp
 qed
 
 lemma reverse_append [simp] :
@@ -57,7 +57,7 @@ proof (induction xs)
   show ?case by simp
 next
   case (Cons _ _)
-  thus ?case by simp
+  then show ?case by simp
 qed
 
 lemma test_auto_quickcheck_false :
@@ -82,7 +82,7 @@ proof (induction xs arbitrary: acc)
   show ?case by simp
 next
   case (Cons _ _)
-  thus ?case by (simp add: add.left_commute)
+  then show ?case by (simp add: add.left_commute)
 qed
 
 theorem acc_sum_eq_sum_tailrec_acc :
@@ -92,7 +92,7 @@ proof (induction xs)
   show ?case by simp
 next
   case (Cons _ _)
-  thus ?case by simp
+  then show ?case by simp
 qed
 
 corollary sum_eq_sum_tail_rec :
