@@ -25,8 +25,10 @@ where
 function insert :: "int => int tree => int tree"
 where
   insert_empty : "insert x Empty = Parent Empty x Empty" |
-  insert_leq : "x \<le> y \<Longrightarrow> insert x (Parent left y right) = Parent (insert x left) y right" |
-  insert_gt : "x > y \<Longrightarrow> insert x (Parent left y right) = Parent left y (insert x right)"
+  insert_leq :
+    "x \<le> y \<Longrightarrow> insert x (Parent left y right) = Parent (insert x left) y right" |
+  insert_gt :
+    "x > y \<Longrightarrow> insert x (Parent left y right) = Parent left y (insert x right)"
 apply (metis linorder_not_less old.prod.exhaust tree_to_list.cases)
 by auto
 termination sorry
