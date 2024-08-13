@@ -22,22 +22,26 @@ abbreviation is_ordered :: "int tree => bool"
 where
   "is_ordered \<equiv> sorted \<circ> tree_to_list"
 
-function insert :: "int => int tree => int tree"
+function insert_ordered :: "int => int tree => int tree"
 where
-  insert_empty : "insert x Empty = Parent Empty x Empty" |
+  insert_empty : "insert_ordered x Empty = Parent Empty x Empty" |
   insert_leq :
-    "x \<le> y \<Longrightarrow> insert x (Parent left y right) = Parent (insert x left) y right" |
+    "x \<le> y \<Longrightarrow>
+      insert_ordered x (Parent left y right) =
+      Parent (insert_ordered x left) y right" |
   insert_gt :
-    "x > y \<Longrightarrow> insert x (Parent left y right) = Parent left y (insert x right)"
+    "x > y \<Longrightarrow>
+      insert_ordered x (Parent left y right) =
+      Parent left y (insert_ordered x right)"
 apply (metis linorder_not_less old.prod.exhaust tree_to_list.cases)
 by auto
 termination sorry
 
-thm insert.induct
+thm insert_ordered.induct
 
-lemma tree_to_set_insert :
-  "tree_to_set (insert x t) = {x} \<union> tree_to_set t"
-proof (induction rule: insert.induct)
+lemma tree_to_set_insert_ordered :
+  "tree_to_set (insert_ordered x t) = {x} \<union> tree_to_set t"
+proof (induction rule: insert_ordered.induct)
   case 1
   show ?case by auto
 next
