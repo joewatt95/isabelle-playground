@@ -5,12 +5,12 @@ imports Main
 begin
 
 datatype 'a tree
-  = Empty
+  = Leaf
   | Parent "'a tree" "'a" "'a tree"
 
 fun tree_to_list :: "'a tree => 'a list"
 where
-  "tree_to_list Empty = []" |
+  "tree_to_list Leaf = []" |
   "tree_to_list (Parent left x right) =
     tree_to_list left @ [x] @ tree_to_list right" 
 
@@ -24,7 +24,7 @@ where
 
 function insert_ordered :: "int => int tree => int tree"
 where
-  insert_empty : "insert_ordered x Empty = Parent Empty x Empty" |
+  insert_empty : "insert_ordered x Leaf = Parent Leaf x Leaf" |
   insert_leq :
     "x \<le> y \<Longrightarrow>
       insert_ordered x (Parent left y right) =
