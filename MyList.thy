@@ -65,6 +65,16 @@ lemma test_auto_quickcheck_false :
   (* by sledgehammer [abduce = 1] *)
   oops
 
+lemma append_assoc [simp] :
+  "append (append xs ys) zs = append xs (append ys zs)"
+proof (induction xs arbitrary: ys zs)
+  case Nil
+  show ?case by simp
+next
+  case (Cons _ _)
+  then show ?case by simp
+qed
+
 fun sum :: "nat list => nat"
 where
   "sum Nil = 0" |
@@ -98,5 +108,29 @@ qed
 corollary sum_eq_sum_tail_rec :
   "sum xs = sum_tailrec xs 0"
   by (metis acc_sum_eq_sum_tailrec_acc add_0_left)
+
+fun is_empty :: "'a list => bool"
+where
+  "is_empty Nil = True" |
+  "is_empty (Cons _ _) = False"
+
+lemma is_empty_iff_eq_nil :
+  "is_empty xs = (xs = Nil)"
+  by (meson is_empty.elims(2) is_empty.simps(1)) 
+
+fun map :: "('a => 'b) => 'a list => 'b list" 
+where
+  "map _ Nil = Nil" |
+  "map f (Cons x xs) = Cons (f x) (map f xs)"
+
+lemma map_comp :
+  "map (g \<circ> f) xs = map g (map f xs)"
+proof (induction xs)
+  case Nil
+  show ?case by simp
+next
+  case (Cons _ _)
+  then show ?case by simp
+qed
 
 end
