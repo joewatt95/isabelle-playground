@@ -33,23 +33,17 @@ where
     "x > y \<Longrightarrow>
       insert_ordered x (Parent left y right) =
       Parent left y (insert_ordered x right)"
-apply (metis linorder_not_less old.prod.exhaust tree_to_list.cases)
-by auto
+
+apply (metis not_le_imp_less surjective_pairing tree_to_list.cases)
+by simp_all
+
 termination sorry
 
 thm insert_ordered.induct
 
 lemma tree_to_set_insert_ordered :
   "tree_to_set (insert_ordered x t) = {x} \<union> tree_to_set t"
-proof (induction rule: insert_ordered.induct)
-  case 1
-  show ?case by auto
-next
-  case (2 x y left right)
-  then show ?case by auto
-next
-  case (3 x y left right)
-  then show ?case by auto
-qed
+  apply (induction rule: insert_ordered.induct)
+  by simp_all
 
 end

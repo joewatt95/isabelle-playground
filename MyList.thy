@@ -42,23 +42,13 @@ qed
 
 theorem reverse_reverse [simp] :
   "reverse (reverse xs) = xs"
-proof (induction xs)
-  case Nil
-  show ?case by simp
-next
-  case (Cons _ _)
-  then show ?case by simp
-qed
+  apply (induction xs)
+  by simp_all
 
 lemma reverse_append [simp] :
   "reverse (append xs ys) = append (reverse ys) (reverse xs)"
-proof (induction xs)
-  case Nil
-  show ?case by simp
-next
-  case (Cons _ _)
-  then show ?case by simp
-qed
+  apply (induction xs)
+  by simp_all
 
 lemma test_auto_quickcheck_false :
   "reverse (append xs ys) = append (reverse xs) (reverse ys)"
@@ -67,13 +57,8 @@ lemma test_auto_quickcheck_false :
 
 lemma append_assoc [simp] :
   "append (append xs ys) zs = append xs (append ys zs)"
-proof (induction xs arbitrary: ys zs)
-  case Nil
-  show ?case by simp
-next
-  case (Cons _ _)
-  then show ?case by simp
-qed
+  apply (induction xs arbitrary: ys zs)
+  by simp_all
 
 fun sum :: "nat list => nat"
 where
@@ -97,13 +82,8 @@ qed
 
 theorem acc_sum_eq_sum_tailrec_acc :
   "acc + sum xs = sum_tailrec xs acc"
-proof (induction xs)
-  case Nil
-  show ?case by simp
-next
-  case (Cons _ _)
-  then show ?case by simp
-qed
+  apply (induction xs)
+  by simp_all
 
 corollary sum_eq_sum_tail_rec :
   "sum xs = sum_tailrec xs 0"
@@ -125,12 +105,7 @@ where
 
 lemma map_comp :
   "map (g \<circ> f) xs = map g (map f xs)"
-proof (induction xs)
-  case Nil
-  show ?case by simp
-next
-  case (Cons _ _)
-  then show ?case by simp
-qed
+  apply (induction xs)
+  by simp_all
 
 end
