@@ -34,8 +34,8 @@ where
       insert_ordered x (Parent left y right) =
       Parent left y (insert_ordered x right)"
 
-apply (metis not_le_imp_less surjective_pairing tree_to_list.cases)
-by simp_all
+apply simp_all
+by (metis linorder_not_le surjective_pairing tree.exhaust)
 
 termination by lexicographic_order
 
