@@ -37,7 +37,7 @@ where
 apply (metis not_le_imp_less surjective_pairing tree_to_list.cases)
 by simp_all
 
-termination sorry
+termination by lexicographic_order
 
 thm insert_ordered.induct
 
