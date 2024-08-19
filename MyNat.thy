@@ -119,7 +119,6 @@ proof (induction n)
 next
   case (Suc n)
   assume "odd n \<or> even n"
-
   then show ?case
   proof
     assume "odd n"

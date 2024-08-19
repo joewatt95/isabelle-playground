@@ -34,8 +34,7 @@ where
       insert_ordered x (Parent left y right) =
       Parent left y (insert_ordered x right)"
 
-apply simp_all
-by (metis linorder_not_le surjective_pairing tree.exhaust)
+by (simp_all, metis linorder_not_le surjective_pairing tree.exhaust)
 
 termination by lexicographic_order
 
@@ -43,7 +42,6 @@ thm insert_ordered.induct
 
 lemma tree_to_set_insert_ordered :
   "tree_to_set (insert_ordered x t) = {x} \<union> tree_to_set t"
-  apply (induction rule: insert_ordered.induct)
-  by simp_all
+  by (induction rule: insert_ordered.induct, simp_all)
 
 end
